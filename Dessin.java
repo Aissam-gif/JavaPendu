@@ -1,6 +1,6 @@
 
 public class Dessin {
-	public static int count = 4;
+	public static int count = 3;
 	//private String[] Pendu = {""};
 	public static void draw(){
         count++;
