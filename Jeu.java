@@ -9,16 +9,17 @@ public class Jeu {
 	private String[] Words = {"pomme","framboise","fraise","melon","orange","pistache","datte",
 			"tomate","avocat","pistache","amande","noix","kaki",
 			"lime","banane","clementine","kiwi","mangue","abricot","pasteque"};
-	private String WordGenerated; //Stockage mot générer de la liste
+	private String WordGenerated; //Stockage mot gÃ©nÃ©rer de la liste
 	private char[] Trait;
+	private int hintnbr = 1;
 	private int indexWordGenerated;
 	public Jeu() {
 		/*
-		 * A la création du jeu on doit génerer Un mot au hasard
+		 * A la crÃ©ation du jeu on doit gÃ©nerer Un mot au hasard
 		 */
 		this.indexWordGenerated = (int) (Math.random()*(Words.length));
 		this.WordGenerated = Words[indexWordGenerated];
-		this.MaxEssai = 4;
+		this.MaxEssai = 5;
 		this.nbrEssaiErrone = 0;
 	}
 	
@@ -55,7 +56,7 @@ public class Jeu {
 		return UpperCase;
 	}
 	/*
-	 * Génerer les caractères du mot brouiller
+	 * GÃ©nerer les caractÃ¨res du mot brouiller
 	 */
 	public char[] GenerateChar() {
 		String Mot  = Words[indexWordGenerated];
@@ -82,6 +83,7 @@ public class Jeu {
 		/*
 		 *  Affichage Des Traits
 		 */
+	
 	public boolean Trait(char Input) {
 		if (CharAppartientMot(Input, WordGenerated, Trait)) 
 		{
@@ -96,15 +98,32 @@ public class Jeu {
 		else {
 			//On prend un mot aleatoire et on le place
 			nbrEssaiErrone++;
+			/*
 			for (int i=0;i<Trait.length;i++) {
 				if (Trait[i] == '_') {
 					this.Trait[i] = Character.toUpperCase(WordGenerated.charAt(i));
 					break;
 				}
-			}
+			} */
 		}
 		return false;
 	}
+	public void UseHint() {
+		//nbrEssaiErrone++;
+		
+		for (int i=0;i<Trait.length;i++) {
+			if (Trait[i] == '_') {
+				this.Trait[i] = Character.toUpperCase(WordGenerated.charAt(i));
+				break;
+			}
+		} 
+		hintnbr++;
+	}
+	
+	public int getHintnbr() {
+		return hintnbr;
+	}
+
 	public char[] getTrait() {
 		return Trait;
 	}
@@ -112,14 +131,22 @@ public class Jeu {
 	public void setTrait(char[] trait) {
 		Trait = trait;
 	}
-	
+	public int Traitleftnbr() {
+		int compteur = 0;
+		for (int i=0;i<Trait.length;i++) {
+			if (Trait[i] == '_') {
+				compteur++;
+			}
+		}
+		return compteur;
+	}
 	//Initialiser Trait
 	public char[] InitTrait() {
 		char[] trait = new char[WordGenerated.length()];
 		for (int i=0;i<trait.length;i++) trait[i] = '_';
 		return trait;
 	}
-	//Test Si le Caractère se trouve dans le Mot
+	//Test Si le CaractÃ¨re se trouve dans le Mot
 	public boolean CharAppartientMot(char Input,String WordGenerated,char[] trait) {
 		char[] Word = WordGenerated.toCharArray();
 		for (int i=0;i<WordGenerated.length();i++) {
