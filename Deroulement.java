@@ -1,9 +1,12 @@
 import java.util.Scanner;
 
+
+
 public class Deroulement {
 	private Jeu Game;
 	private char InputConsole;
 	private char[] CaractereGenerer;
+	public String hint;
 	public static final Scanner Console = new Scanner(System.in);
 	public Deroulement(Jeu Game) {
 		this.Game = Game;
@@ -15,33 +18,48 @@ public class Deroulement {
 		 System.out.println("Bienvenu Dans Votre Jeu !");
 		 System.out.println("Vous Avez " + Game.getMaxEssai() + " Essais ");
 		//System.out.println("The Word was : " + Game.getWordGenerated());
-		// SetTrait est Un accesseur de la proprieté du trait dans la classe GAME
-		// InitTrait Pour initialiser le nombre de Trait selon le mot définie au hasard
+		// SetTrait est Un accesseur de la proprietÃ© du trait dans la classe GAME
+		// InitTrait Pour initialiser le nombre de Trait selon le mot dÃ©finie au hasard
 		Game.setTrait(Game.InitTrait());
 		//char[] CaracteresGenerer = Game.GenerateChar();
 		do {
-			//Chaque tour affichage état trait
+			//Chaque tour affichage Ã©tat trait
 			DisplayTrait();
 			DisplayCaracter();
 			//Saisie Caractere d'apres l'utilisateur
 			try {
 				System.out.println("*************************");
-				System.out.print("Entrer Un caractere : ");	
+				System.out.println("Sacrifier par un essai pour avoir un Hint (Tapez \"hint\" ");
+				System.out.print("Entrer Un caractere : ");
 				// Prendre le premier caractere saisie de l'utilisateur
-				this.InputConsole = Console.next().charAt(0);
+				hint = Console.next();
+				this.InputConsole = hint.charAt(0);
+				
 			} catch (Exception e) {
 				System.out.println("Veuillez entrer un caractere !");
+				System.out.println("Sacrifier par un essai pour avoir un Hint (Tapez \"hint\" Max-2) ");
 				System.out.println();
 			}
 			//Verficiation l'etat du Trait avec le nouveau caractere
-			if (Game.Trait(InputConsole)) {
+			if (Game.Trait(InputConsole) && !hint.equalsIgnoreCase("hint")) {
 				System.out.println("-->> Vous avez bien tourver le caractere ! <<--");
 				System.out.println();
-			}else {
+			}else if (!hint.equalsIgnoreCase("hint")){
 				System.out.println("-->> Oops , Vous avez mal choisie le caractere ! <<--");
 				System.out.println();
 				Dessin.draw();
+			} else {
+				if (Game.getHintnbr() <= 2 && Game.Traitleftnbr() > 1 && (Game.getMaxEssai()-Game.getnbrEssaiErrone())>1 )  {
+					System.out.println("-->> Vous avez utiliser un hint ! <<--");
+					Game.UseHint();
+					Dessin.draw();	
+				}
+				else {
+					System.out.println("-->> Vous pouvez plus Utiliser Hint ! <<--");
+					Game.setnbrEssaiErrone(Game.getnbrEssaiErrone()-1);
+				}
 			}
+			
 			DisplayEssaiLeft();
 			if (NoTraitLeft()) {
 				System.out.println("Votre Reponse : ");
@@ -50,7 +68,7 @@ public class Deroulement {
 		}while((Game.getnbrEssaiErrone() < Game.getMaxEssai()) && 
 			!NoTraitLeft()	);
 		if ( Game.getMaxEssai() - Game.getnbrEssaiErrone() > 0) {
-			System.out.println("Bravo , Vous Avez Gagné le Mot a ete bien : " + Game.getWordGenerated());
+			System.out.println("Bravo , Vous Avez GagnÃ© le Mot a ete bien : " + Game.getWordGenerated());
 			for (int i=0;i<5 ;i++) {
 				System.out.println();
 			}
