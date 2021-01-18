@@ -67,7 +67,7 @@ public class Deroulement {
 				this.InputFirstChar = FullInput.charAt(0);
 				
 			// Si l'entrer n'est pas un HINT ou bien le nombre de hint maximal est atteint
-			if (!FullInput.equalsIgnoreCase("hint") || Game.getHintnbr()>= 2) {
+			if (!FullInput.equalsIgnoreCase("hint")) {
 				/*
 				 * Si le caractere ou la chaine(premier caractere) entre n'est pas "hint" et il'est juste
 				 */
@@ -101,12 +101,7 @@ public class Deroulement {
 					Dessin.draw(); 
 				}
 				else {
-					System.out.println("-->> Vous pouvez plus Utiliser Hint ! <<--");
-					/*
-					 *  Lorsque on fait appel a la fonction usehint() on incremente le nombre d'essais errone
-					 	donc on doit les decrementer parcequ'on nas pas vraiment utiliser un hint
-					 */ 
-					Game.setnbrEssaiErrone(Game.getnbrEssaiErrone()+1);
+					System.out.println("-->> Vous pouvez plus Utiliser Hint ! <<--");	
 				}
 			}
 			
