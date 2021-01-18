@@ -44,7 +44,7 @@ public class Deroulement {
 		// Generer Les caractere brouilles
 		this.CaractereGenerer = Game.GenerateChar();
 		 System.out.println("Bienvenu Dans Votre Jeu !");
-		 System.out.println("Vous Avez " + Game.getMaxEssai() + " Essais ");
+		 System.out.println("Vous Avez " + Game.getMaxEssai() + " Essais Errone");
 		 
 		/*
 		 *  SetTrait est Un accesseur de la propriete du trait dans la classe Jeu
@@ -60,27 +60,31 @@ public class Deroulement {
 			
 				System.out.println("*************************");
 				System.out.println("Sacrifier par un essai pour avoir un Hint (Tapez \"hint\" Max-2) ");
-				System.out.print("Entrer Un caractere : ");
+				System.out.print("Entrer Un caractere ou (hint) : ");
 				// Prendre tout le mot saisie (Si le cas de "hint")
 				FullInput = Console.next();
 				// Prendre le premier caractere de FullInput
 				this.InputFirstChar = FullInput.charAt(0);
 				
-			/*
-			 * Si le caractere ou la chaine(premier caractere) entre n'est pas "hint" et il'est juste
-			 */
-			if (Game.Trait(InputFirstChar) && !FullInput.equalsIgnoreCase("hint")) {
-				System.out.println("-->> Vous avez bien tourver le caractere ! <<--");
-				System.out.println();
+			// Si l'entrer n'est pas un HINT ou bien le nombre de hint maximal est atteint
+			if (!FullInput.equalsIgnoreCase("hint") || Game.getHintnbr()>= 2) {
+				/*
+				 * Si le caractere ou la chaine(premier caractere) entre n'est pas "hint" et il'est juste
+				 */
+				if (Game.Trait(InputFirstChar)) {
+					System.out.println("-->> Vous avez bien tourver le caractere ! <<--");
+					System.out.println();
+				}
+				/*
+				 * Si le caractere ou la chaine entre n'est pas "hint"
+				 */
+				else {
+					System.out.println("-->> Oops , Vous avez mal choisie le caractere ! <<--");
+					System.out.println();
+					Dessin.draw(); 
+				}
 			}
-			/*
-			 * Si le caractere ou la chaine entre n'est pas "hint"
-			 */
-			else if (!FullInput.equalsIgnoreCase("hint")){
-				System.out.println("-->> Oops , Vous avez mal choisie le caractere ! <<--");
-				System.out.println();
-				Dessin.draw();  
-			} 
+			
 			/*
 			 * Si la chaine entree etait un "hint"
 			 */
@@ -100,10 +104,9 @@ public class Deroulement {
 					System.out.println("-->> Vous pouvez plus Utiliser Hint ! <<--");
 					/*
 					 *  Lorsque on fait appel a la fonction usehint() on incremente le nombre d'essais errone
-					 	donc on doit les decrementer parcequ'on nas pas vraiement utiliser un hint
+					 	donc on doit les decrementer parcequ'on nas pas vraiment utiliser un hint
 					 */ 
-					
-					Game.setnbrEssaiErrone(Game.getnbrEssaiErrone()-1);
+					Game.setnbrEssaiErrone(Game.getnbrEssaiErrone()+1);
 				}
 			}
 			
@@ -146,14 +149,13 @@ public class Deroulement {
 	}
 	/*
 	 *  A chaque fois on termine un deroulement on doit faire une reintialisation
-	 *  du jeu , en crï¿½ant une instance je noubeau jeu et de generer un nouveau mot
+	 *  du jeu , en creant une instance de nouveau jeu et de generer un nouveau mot
 	 *  , reintialiser le compteur du dessin pendu
 	 */
 	public Jeu ResetGame() {
 		Jeu newGame = new Jeu();
-		//this.CaractereGenerer = newGame.GenerateChar();
 		this.Game = newGame;
-		Dessin.count = 3;
+		Dessin.count = 0;
 		return newGame;
 	}
 }
