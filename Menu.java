@@ -31,9 +31,9 @@ public class Menu {
 			System.out.println("/ 3-     Capitales    	 ");
 			System.out.println("/ 4-       Pays   	 ");
 			System.out.println("/ 5-      Metiers   	 ");
-			System.out.println("/***************************/");
-			System.out.print("Selectionner Un theme : ");
-			choixTheme = Console.nextInt();
+			System.out.println("/***************************/");			
+				System.out.print("Selectionner Un theme : ");
+				choixTheme = Console.nextInt();
 			switch(choixTheme) {
 			case 1:
 				// appel Menu au dessus
@@ -57,6 +57,8 @@ public class Menu {
 				menu(Der);
 				Game = Der.ResetGame();
 				break;
+		 default:
+			 menuTheme(Der,Game);
 			}
 		} while (choix != 0);
 	}
