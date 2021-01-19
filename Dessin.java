@@ -1,37 +1,19 @@
 
 public class Dessin {
-	public static int count = 3;
+	public static int count = 0;
 	public static void draw(){
         count++;
         int choix = count;
         switch(choix){
             case 1:
-            	System.out.println("|");
-                System.out.println("-");
-                System.out.println("********************");
-                break;
+            	System.out.println(" ____");
+            	System.out.print("|");
+            	System.out.println("/");
+            	for (int i=0;i<4;i++) System.out.println("|");
+            	System.out.println("-");
+            	System.out.println("********************");
+            	break;
             case 2:
-            	for (int i=0;i<4;i++) System.out.println("|");
-            	System.out.println("-");
-            	System.out.println("********************");
-            	break;
-            case 3:
-            	System.out.println(" ____");
-            	System.out.print("|");
-            	System.out.println("/");
-            	for (int i=0;i<4;i++) System.out.println("|");
-            	System.out.println("-");
-            	System.out.println("********************");
-            	break;
-            case 4:
-            	System.out.println(" ____");
-            	System.out.print("|");
-            	System.out.println("/");
-            	for (int i=0;i<4;i++) System.out.println("|");
-            	System.out.println("-");
-            	System.out.println("********************");
-            	break;
-            case 5:
               System.out.println(" ____");
             	System.out.print("|");
             	System.out.print("/");
@@ -40,7 +22,7 @@ public class Dessin {
             	System.out.println("-");
             	System.out.println("********************");
             	break;
-            case 6:
+            case 3:
             	 System.out.println(" ____");
              	System.out.print("|");
              	System.out.print("/");
@@ -51,7 +33,7 @@ public class Dessin {
              	System.out.println("-");
              	System.out.println("********************");
              	break;
-            case 7:
+            case 4:
            	 System.out.println(" ____");
             	System.out.print("|");
             	System.out.print("/");
@@ -64,7 +46,7 @@ public class Dessin {
             	System.out.println("-");
             	System.out.println("********************");
             	break;
-            case 8:
+            case 5:
               	 System.out.println(" ____");
                	System.out.print("|");
                	System.out.print("/");
