@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Jeu {
-	private int nbrEssaiErrone; 
+	private int nbrEssaiErrone;
 	private final int MaxEssai = 5;   //nbr total des essais
 	private String WordGenerated; // Stockage mot générer de la liste
 	private char[] Trait; 		  // Pour qu'on puisse modifier l'etat du trait apres dans le deroulement 
@@ -105,12 +105,13 @@ public class Jeu {
 	 */
 	public void UseHint() {
 		for (int i=0;i<Trait.length;i++) {
-			if (Trait[i] == '_') {
+			if (this.Trait[i] == '_') {
 				this.Trait[i] = Character.toUpperCase(WordGenerated.charAt(i));
 				break;
 			}
 		} 
 		hintnbr++;
+		this.nbrEssaiErrone++;
 	}
 	
 	/*
@@ -121,7 +122,10 @@ public class Jeu {
 	public int getIndexChar(char Input) {
 		char[] Word = WordGenerated.toCharArray();
 		for (int i=0;i<Word.length;i++) {
-			if ((Word[i] == Input || Word[i] == Character.toUpperCase(Input)) && this.Trait[i] == '_') return i;
+				// p == p || P == p->P && trait[i] == '_' 
+			if ((Word[i] == Input || Word[i] == Character.toUpperCase(Input)) && this.Trait[i] == '_') {
+				return i;
+			}
 		}
 		return -1;
 	}
@@ -137,6 +141,7 @@ public class Jeu {
 		int indexChar = getIndexChar(Input);
 		if (indexChar >= 0) 
 		{
+				// To Upper Case juste pour afficher les caractere en Maj
 			if (Character.isLowerCase(Input)) {				
 				this.Trait[indexChar]  = Character.toUpperCase(Input);
 			} else {
